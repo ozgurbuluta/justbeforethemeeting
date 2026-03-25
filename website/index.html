@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Just Before The Meeting — macOS menu bar countdown</title>
+  <meta name="description" content="Menu bar app for Mac: Google Calendar aware countdown and theme music before your meetings." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">macOS · Menu bar</p>
+      <h1>Just Before The Meeting</h1>
+      <p class="lede">
+        A tiny Mac app that lives in your menu bar, watches Google Calendar, and plays your news-style theme
+        with a pulsing countdown right before the events you care about.
+      </p>
+      <a class="cta" href="#" id="download-link" aria-disabled="true">Download DMG (coming soon)</a>
+      <p class="cta-note">Host your signed &amp; notarized <code>JustBeforeTheMeeting.dmg</code> and point this button to its URL.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="features">
+      <h2>What it does</h2>
+      <ul>
+        <li><strong>Background menu bar app</strong> — no Dock icon; always within reach.</li>
+        <li><strong>Google Calendar</strong> — OAuth sign-in, polls your calendars, respects filters.</li>
+        <li><strong>Custom sound</strong> — bring your own news sting (mp3/m4a) or bundle <code>default_theme</code>.</li>
+        <li><strong>Pulsing countdown</strong> — red/orange timer in the menu bar; click to dismiss early.</li>
+        <li><strong>Per-event control</strong> — rules (all / video / keyword) plus toggles for upcoming items.</li>
+      </ul>
+    </section>
+
+    <section class="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>Download and open the app (after you notarize &amp; distribute it).</li>
+        <li>Add your Google OAuth Client ID to the app’s <code>Info.plist</code> (or your build settings).</li>
+        <li>In Google Cloud Console, add authorized redirect URI: <code>jbtm://oauth</code>.</li>
+        <li>Connect Google, pick sound &amp; rules in <strong>Settings</strong>, and keep the app running.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>Open source layout — replace download link when your DMG is live.</p>
+  </footer>
+</body>
+</html>
