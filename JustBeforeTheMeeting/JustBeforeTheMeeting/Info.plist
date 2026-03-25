@@ -23,9 +23,9 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>GoogleOAuthClientID</key>
-	<string>132965390754-3shvcvnactd1epor2l9o1fgqmesq2fr4.apps.googleusercontent.com</string>
+	<string>$(GOOGLE_OAUTH_CLIENT_ID)</string>
 	<key>GoogleOAuthClientSecret</key>
-	<string>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</string>
+	<string>$(GOOGLE_OAUTH_CLIENT_SECRET)</string>
 	<key>GoogleOAuthRedirectURI</key>
 	<string>jbtm://oauth</string>
 	<key>NSUserNotificationsUsageDescription</key>

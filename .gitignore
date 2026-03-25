@@ -39,8 +39,8 @@ fastlane/test_output
 .env
 *.p8
 AuthKey_*.p8
-# Local Xcode config with OAuth client ID (optional)
-Config/Secrets.xcconfig
+# Local Xcode config with OAuth credentials
+**/Secrets.xcconfig
 
 # Cursor / IDE (optional local)
 .cursor/

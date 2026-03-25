@@ -1,47 +1,129 @@
 # Just Before The Meeting
 
-macOS menu bar app: connects to **Google Calendar**, plays your **custom news-style theme** with a **pulsing countdown** in the menu bar before selected meetings.
+A native macOS **menu bar app** that connects to **Google Calendar**, plays your **custom news-style theme music** with a **pulsing countdown** in the menu bar before selected meetings.
 
-**New to setup?** Follow the click-by-click guide: **[docs/SETUP.md](docs/SETUP.md)** (Google Cloud, Client ID, sound file, icon, DMG + notarization).
+**First-time setup?** Follow the detailed walkthrough: **[docs/SETUP.md](docs/SETUP.md)**
+
+---
+
+## Features
+
+- **Menu bar only** — runs in the background with no Dock icon (`LSUIElement`)
+- **Google Calendar sync** — OAuth 2.0 with PKCE, polls your calendars on a configurable interval
+- **Countdown timer** — pulsing red/orange `⏰ 0:30` → `0:00` in the status bar; click to dismiss early
+- **Custom audio** — bring your own news theme (mp3/m4a) with fade-in/out; volume control in settings
+- **Event filtering** — rules (all events / video-only / keyword match) plus per-event toggles
+- **Settings UI** — SwiftUI tabbed window: Calendar, Events, Sound, General
+- **Launch at login** — via `SMAppService` on macOS 13+
+- **Backup notifications** — optional `UNUserNotificationCenter` alert when countdown starts
 
 ## Project layout
 
-- [`JustBeforeTheMeeting/`](JustBeforeTheMeeting/) — Xcode project and Swift sources
-- [`website/`](website/) — static landing page (replace download link when you ship a DMG)
-- [`scripts/build-and-distribute.sh`](scripts/build-and-distribute.sh) — archive, sign, DMG, notarize (with env vars)
+```
+JustBeforeTheMeeting/          Xcode project and Swift sources
+  Config/
+    Secrets.example.xcconfig   Copy to Secrets.xcconfig and add your credentials
+  JustBeforeTheMeeting/
+    App/                       AppDelegate, StatusBarController, SettingsWindowController
+    Services/                  AudioManager, CountdownManager, GoogleCalendarService,
+                               OAuthManager, EventScheduler, KeychainHelper, SettingsManager
+    Models/                    CalendarEvent, EventFilterRule
+    Views/                     SettingsView, CalendarSettingsView, SoundSettingsView,
+                               GeneralSettingsView, EventRulesSettingsView
+    Resources/                 Assets.xcassets (app icon), default_theme.mp3
+    Info.plist                 Uses $(GOOGLE_OAUTH_CLIENT_ID) and $(GOOGLE_OAUTH_CLIENT_SECRET)
+website/                       Static landing page (replace download link when you ship)
+scripts/build-and-distribute.sh  Archive → sign → DMG → notarize
+docs/SETUP.md                 Step-by-step first-time setup guide
+```
 
-## Build (Xcode)
+## Quick start
 
-1. Open `JustBeforeTheMeeting/JustBeforeTheMeeting.xcodeproj`
-2. Select scheme **JustBeforeTheMeeting** and **My Mac**
-3. Run (⌘R)
+### 1. Clone and set up secrets
 
-## Google OAuth setup
+```bash
+git clone https://github.com/ozgurbuluta/justbeforethemeeting.git
+cd justbeforethemeeting/JustBeforeTheMeeting/Config
+cp Secrets.example.xcconfig Secrets.xcconfig
+```
 
-1. [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → enable **Google Calendar API**
-2. OAuth consent screen (External or Internal)
-3. Credentials → **OAuth client ID** → Application type **Desktop app** (or use a macOS client that allows custom scheme)
-4. Authorized redirect URIs: **`jbtm://oauth`**
-5. Copy the Client ID into the app’s **Info.plist** key **`GoogleOAuthClientID`** (or override via build settings / `.xcconfig`)
+Edit `Secrets.xcconfig` with your Google OAuth credentials:
 
-Optional: **`GoogleOAuthRedirectURI`** (default `jbtm://oauth`) must match the console.
+```
+GOOGLE_OAUTH_CLIENT_ID = your-client-id.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET = your-client-secret
+```
 
-## Custom sound
+### 2. Google Cloud setup
 
-- Add **`default_theme.mp3`** or **`default_theme.m4a`** to the Xcode target (Copy Bundle Resources), **or**
-- Choose a file in **Settings → Sound**
+1. [Google Cloud Console](https://console.cloud.google.com/) → create or select a project
+2. **APIs & Services** → **Library** → enable **Google Calendar API**
+3. **OAuth consent screen** → External → add scope `calendar.readonly` → add yourself as test user
+4. **Credentials** → **OAuth client ID** → type **Desktop app** → create
+5. Copy the **Client ID** and **Client Secret** into `Secrets.xcconfig`
 
-## Distribution
+### 3. Build and run
 
-1. Set **Developer ID Application** signing in Xcode or pass `CODE_SIGN_IDENTITY` to the script
-2. Run `scripts/build-and-distribute.sh` with notarytool credentials (see script header)
-3. Upload the DMG (e.g. GitHub Releases) and set `website/index.html` download link
+1. Open `JustBeforeTheMeeting/JustBeforeTheMeeting.xcodeproj` in Xcode
+2. Destination: **My Mac** (no simulator needed — this is a native Mac app)
+3. **Command+R** to build and run
+4. Look for **JBTM** in the menu bar (top-right of screen)
+5. Click → **Connect Google Calendar** → sign in via browser
+6. Use **Test Countdown + Music** to verify it works
+
+### 4. Custom sound
+
+The app looks for `default_theme.mp3` or `default_theme.m4a` in the bundle. To use your own:
+
+- Drag your audio file into the Xcode project under Resources
+- Check **Copy items if needed** and **Add to targets: JustBeforeTheMeeting**
+- Or pick any file at runtime via **Settings → Sound → Choose sound file**
+
+## How it works
+
+```
+Google Calendar API
+        │ polls every N minutes
+        ▼
+  GoogleCalendarService → events
+        │
+        ▼
+   EventScheduler → schedules timers (advance warning seconds before each event)
+        │
+        ├──▶ CountdownManager → pulsing ⏰ timer in NSStatusItem
+        │
+        └──▶ AudioManager → plays theme with fade-in
+        
+  When countdown hits 0 → fade out audio → restore normal menu bar icon
+  Click countdown → cancel early → stop audio immediately
+```
+
+## Distribution (optional)
+
+To ship a signed + notarized DMG for others to download:
+
+1. **Apple Developer Program** ($99/year) → **Developer ID Application** certificate
+2. Set credentials:
+
+```bash
+export CODE_SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+export NOTARY_KEY_PATH="$HOME/AuthKey_XXXXX.p8"
+export NOTARY_KEY_ID="XXXXXXXXXX"
+export NOTARY_ISSUER="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+./scripts/build-and-distribute.sh
+```
+
+3. Upload `build/JustBeforeTheMeeting.dmg` to GitHub Releases or your hosting
+4. Update `website/index.html` download link
 
 ## Requirements
 
-- macOS **13**+
-- Xcode **15**+ recommended
+- macOS **13.0**+
+- Xcode **15**+ (for building)
 
-## Privacy
+## Security and privacy
 
-Calendar data is read via Google’s API with **read-only** scope and stored only in memory for scheduling; tokens are kept in the **Keychain**. Review Google’s policies before shipping to end users.
+- OAuth credentials are stored in a **local `.xcconfig`** file that is **gitignored**
+- Calendar tokens are stored in the **macOS Keychain**
+- Calendar data is read-only (`calendar.readonly` scope) and kept in memory only
+- No data leaves your machine except Google Calendar API requests
