@@ -235,23 +235,26 @@ final class OAuthManager: NSObject, ObservableObject {
 
 extension OAuthManager: ASWebAuthenticationPresentationContextProviding {
     nonisolated func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        var anchor: ASPresentationAnchor!
-        DispatchQueue.main.sync {
+        let getAnchor = { () -> ASPresentationAnchor in
             if let w = NSApp.keyWindow ?? NSApp.windows.first(where: { $0.isVisible }) {
-                anchor = w
-            } else {
-                let w = NSWindow(
-                    contentRect: NSRect(x: 0, y: 0, width: 1, height: 1),
-                    styleMask: [.borderless],
-                    backing: .buffered,
-                    defer: false
-                )
-                w.alphaValue = 0.01
-                w.orderFrontRegardless()
-                anchor = w
+                return w
             }
+            let w = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 1, height: 1),
+                styleMask: [.borderless],
+                backing: .buffered,
+                defer: false
+            )
+            w.alphaValue = 0.01
+            w.orderFrontRegardless()
+            return w
         }
-        return anchor
+
+        if Thread.isMainThread {
+            return getAnchor()
+        } else {
+            return DispatchQueue.main.sync { getAnchor() }
+        }
     }
 }
 
