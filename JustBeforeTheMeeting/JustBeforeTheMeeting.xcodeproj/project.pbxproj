@@ -27,6 +27,7 @@
 		BF0000000000000000000012 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000012 /* GeneralSettingsView.swift */; };
 		BF0000000000000000000013 /* EventRulesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000013 /* EventRulesSettingsView.swift */; };
 		BF0000000000000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000014 /* Assets.xcassets */; };
+		BF0000000000000000000015 /* default_theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000017 /* default_theme.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		FR0000000000000000000013 /* EventRulesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRulesSettingsView.swift; sourceTree = "<group>"; };
 		FR0000000000000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FR0000000000000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FR0000000000000000000017 /* default_theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = default_theme.mp3; sourceTree = "<group>"; };
 		FR0000000000000000000016 /* JustBeforeTheMeeting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustBeforeTheMeeting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				FR0000000000000000000014 /* Assets.xcassets */,
+				FR0000000000000000000017 /* default_theme.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0000000000000000000014 /* Assets.xcassets in Resources */,
+				BF0000000000000000000015 /* default_theme.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
