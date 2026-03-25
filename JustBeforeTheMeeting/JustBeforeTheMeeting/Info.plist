@@ -24,6 +24,8 @@
 	<true/>
 	<key>GoogleOAuthClientID</key>
 	<string>132965390754-3shvcvnactd1epor2l9o1fgqmesq2fr4.apps.googleusercontent.com</string>
+	<key>GoogleOAuthClientSecret</key>
+	<string>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</string>
 	<key>GoogleOAuthRedirectURI</key>
 	<string>jbtm://oauth</string>
 	<key>NSUserNotificationsUsageDescription</key>

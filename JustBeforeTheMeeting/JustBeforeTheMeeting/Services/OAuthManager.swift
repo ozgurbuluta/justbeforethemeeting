@@ -30,6 +30,11 @@ final class OAuthManager: NSObject, ObservableObject {
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
 
+    private var clientSecret: String {
+        (Bundle.main.object(forInfoDictionaryKey: "GoogleOAuthClientSecret") as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+
     func accessToken() async throws -> String {
         guard let tokens else { throw OAuthError.notSignedIn }
         if tokens.expiry > Date().addingTimeInterval(60) {
@@ -168,13 +173,16 @@ final class OAuthManager: NSObject, ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
-        let body = [
+        var body = [
             "code": code,
             "client_id": clientID,
             "redirect_uri": redirectURI,
             "grant_type": "authorization_code",
             "code_verifier": verifier,
         ]
+        if !clientSecret.isEmpty {
+            body["client_secret"] = clientSecret
+        }
         request.httpBody = Self.formURLEncoded(body).data(using: .utf8)
 
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -203,11 +211,14 @@ final class OAuthManager: NSObject, ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
-        let body = [
+        var body = [
             "client_id": clientID,
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
         ]
+        if !clientSecret.isEmpty {
+            body["client_secret"] = clientSecret
+        }
         request.httpBody = Self.formURLEncoded(body).data(using: .utf8)
 
         let (data, response) = try await URLSession.shared.data(for: request)
