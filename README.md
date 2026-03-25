@@ -2,6 +2,8 @@
 
 macOS menu bar app: connects to **Google Calendar**, plays your **custom news-style theme** with a **pulsing countdown** in the menu bar before selected meetings.
 
+**New to setup?** Follow the click-by-click guide: **[docs/SETUP.md](docs/SETUP.md)** (Google Cloud, Client ID, sound file, icon, DMG + notarization).
+
 ## Project layout
 
 - [`JustBeforeTheMeeting/`](JustBeforeTheMeeting/) — Xcode project and Swift sources
