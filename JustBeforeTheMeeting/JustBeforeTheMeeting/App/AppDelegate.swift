@@ -3,10 +3,10 @@ import AppKit
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let settings = SettingsManager()
-    private lazy var audioManager = AudioManager(settings: settings)
-    private lazy var countdownManager = CountdownManager(settings: settings)
     private lazy var oauthManager = OAuthManager(settings: settings)
     private lazy var calendarService = GoogleCalendarService(settings: settings, oauth: oauthManager)
+    private lazy var audioManager = AudioManager(settings: settings)
+    private lazy var countdownManager = CountdownManager(settings: settings, calendar: calendarService)
     private lazy var eventScheduler = EventScheduler(
         settings: settings,
         calendar: calendarService,

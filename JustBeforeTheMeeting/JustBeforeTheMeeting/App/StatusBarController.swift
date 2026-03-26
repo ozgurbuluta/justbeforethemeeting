@@ -14,6 +14,9 @@ final class StatusBarController: NSObject {
     private var menu: NSMenu!
     private weak var connectMenuItem: NSMenuItem?
     private weak var disconnectMenuItem: NSMenuItem?
+    /// Index where upcoming-countdown rows are inserted (after Settings + separator).
+    private var upcomingSectionInsertIndex: Int = 0
+    private static let upcomingMenuTag = 9900
 
     init(
         settings: SettingsManager,
@@ -64,6 +67,7 @@ final class StatusBarController: NSObject {
         menu.addItem(settingsItem)
 
         menu.addItem(NSMenuItem.separator())
+        upcomingSectionInsertIndex = menu.items.count
 
         let connect = makeConnectMenuItem()
         let disconnect = makeDisconnectMenuItem()
@@ -170,5 +174,60 @@ extension StatusBarController: NSMenuDelegate {
         guard menu === self.menu else { return }
         connectMenuItem?.title = oauth.isAuthorized ? "Reconnect Google Calendar" : "Connect Google Calendar"
         disconnectMenuItem?.isEnabled = oauth.isAuthorized
+        refreshUpcomingCountdownSection()
+    }
+
+    private func refreshUpcomingCountdownSection() {
+        for idx in (0..<menu.items.count).reversed() where menu.item(at: idx)?.tag == Self.upcomingMenuTag {
+            menu.removeItem(at: idx)
+        }
+        let rows = buildUpcomingCountdownMenuItems()
+        for (i, item) in rows.enumerated() {
+            menu.insertItem(item, at: upcomingSectionInsertIndex + i)
+        }
+    }
+
+    private func buildUpcomingCountdownMenuItems() -> [NSMenuItem] {
+        func taggedHeader(_ title: String) -> NSMenuItem {
+            let m = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+            m.isEnabled = false
+            m.tag = Self.upcomingMenuTag
+            return m
+        }
+
+        var items: [NSMenuItem] = []
+        items.append(taggedHeader("Upcoming countdown triggers"))
+
+        if !oauth.isAuthorized {
+            items.append(taggedHeader("Connect Google Calendar to see scheduled countdowns"))
+            return items
+        }
+
+        let upcoming = settings.upcomingCountdownItems(from: calendar.events)
+        if upcoming.isEmpty {
+            items.append(taggedHeader("No matching events in the next 48 hours"))
+            return items
+        }
+
+        let now = Date()
+        let rel = RelativeDateTimeFormatter()
+        rel.unitsStyle = .abbreviated
+        let clock = DateFormatter()
+        clock.timeStyle = .short
+        clock.dateStyle = .none
+
+        for u in upcoming {
+            let musicHint: String
+            if u.triggerDate <= now {
+                musicHint = "music imminently"
+            } else {
+                musicHint = "music " + rel.localizedString(for: u.triggerDate, relativeTo: now)
+            }
+            let startClock = clock.string(from: u.event.start)
+            let startRel = rel.localizedString(for: u.event.start, relativeTo: now)
+            let line = "\(u.event.title) — \(musicHint), starts \(startClock) (\(startRel))"
+            items.append(taggedHeader(line))
+        }
+        return items
     }
 }
