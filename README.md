@@ -98,6 +98,10 @@ Google Calendar API
   Click countdown → cancel early → stop audio immediately
 ```
 
+## Website (GitHub Pages)
+
+The [`website/`](website/) folder deploys with **GitHub Actions** (`.github/workflows/deploy-pages.yml`) when you push to `main`. In the repo’s **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”) so the workflow can publish.
+
 ## Distribution (optional)
 
 To ship a signed + notarized DMG for others to download:
@@ -113,8 +117,10 @@ export NOTARY_ISSUER="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ./scripts/build-and-distribute.sh
 ```
 
-3. Upload `build/JustBeforeTheMeeting.dmg` to GitHub Releases or your hosting
-4. Update `website/index.html` download link
+3. Upload `build/JustBeforeTheMeeting.dmg` to **GitHub Releases** with the exact filename **`JustBeforeTheMeeting.dmg`** so the site’s button works with  
+   `https://github.com/ozgurbuluta/justbeforethemeeting/releases/latest/download/JustBeforeTheMeeting.dmg`  
+   (or use your own host and change [`website/index.html`](website/index.html).)
+4. The landing page download link targets that URL by default; adjust if you host the DMG elsewhere.
 
 ## Requirements
 

@@ -45,6 +45,11 @@ You need a Google Cloud **project**, the **Calendar API** turned on, and an **OA
 
 If Google’s UI does not show redirect URIs for “Desktop app”, create the client anyway, then edit it and add **`jbtm://oauth`** under authorized redirect URIs, or create an OAuth client type that allows custom URL schemes (some consoles label this differently; the URI must match the app).
 
+### 1.5 Testing vs public users
+
+- **Testing (small audience):** Keep the OAuth consent screen in **Testing** and add every sign-in account under **Test users**. No Google verification required.
+- **Production (any Google account):** Publish the consent screen and complete **Google verification** for sensitive/restricted scopes if prompted. Google often asks for an **app homepage** and **privacy policy URL**—use your deployed site and [`website/privacy.html`](../website/privacy.html) when that page is live.
+
 ---
 
 ## 2. Put the Client ID into the Mac app
@@ -161,7 +166,7 @@ The script builds **`build/JustBeforeTheMeeting.dmg`** (path may vary; see scrip
 
 1. Upload the DMG to **GitHub Releases**, **S3**, **Cloudflare R2**, etc.
 2. Copy the **direct download HTTPS URL**.
-3. Edit **`website/index.html`**: find the download link (`id="download-link"`), set **`href`** to that URL, remove **`aria-disabled="true"`**, and change the button text to something like **Download for Mac**.
+3. The landing page defaults to the GitHub Releases “latest” DMG URL; if you host the file elsewhere, edit **`website/index.html`** (`id="download-link"`) and keep the asset filename consistent if you still use the same URL pattern.
 
 ---
 
@@ -176,5 +181,6 @@ The script builds **`build/JustBeforeTheMeeting.dmg`** (path may vary; see scrip
 | Sound file in bundle or chosen in Settings | ☐ |
 | App Icon PNGs (optional but nice) | ☐ |
 | Developer ID sign + notarize + DMG + website link (only for public download) | ☐ |
+| OAuth published + verified (only if non–test users sign in) | ☐ |
 
 If something fails (OAuth error, blank calendar, no sound), check **README.md** and the in-app **About** text for reminders about Client ID and redirect URI.

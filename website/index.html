@@ -26,8 +26,13 @@
         A tiny Mac app that lives in your menu bar, watches Google Calendar, and plays your news-style theme
         with a pulsing countdown right before the events you care about.
       </p>
-      <a class="cta" href="#" id="download-link" aria-disabled="true">Download DMG (coming soon)</a>
-      <p class="cta-note" id="cta-note">Host your signed &amp; notarized <code>JustBeforeTheMeeting.dmg</code> and point this button to its URL.</p>
+      <a
+        class="cta"
+        href="https://github.com/ozgurbuluta/justbeforethemeeting/releases/latest/download/JustBeforeTheMeeting.dmg"
+        id="download-link"
+        rel="noopener"
+      >Download for Mac (DMG)</a>
+      <p class="cta-note" id="cta-note">macOS 13+. Prefer a signed, notarized build from GitHub Releases.</p>
     </div>
   </header>
 
@@ -46,16 +51,19 @@
     <section class="how">
       <h2 data-i18n="how.heading">How it works</h2>
       <ol id="how-list">
-        <li>Download and open the app (after you notarize &amp; distribute it).</li>
-        <li>Add your Google OAuth Client ID to the app’s <code>Info.plist</code> (or your build settings).</li>
-        <li>In Google Cloud Console, add authorized redirect URI: <code>jbtm://oauth</code>.</li>
-        <li>Connect Google, pick sound &amp; rules in <strong>Settings</strong>, and keep the app running.</li>
+        <li>Download the DMG, open it, and drag <strong>Just Before The Meeting</strong> into Applications.</li>
+        <li>Launch the app from your menu bar (JBTM icon), then choose <strong>Connect Google Calendar</strong> and complete sign-in in your browser.</li>
+        <li>Open <strong>Settings</strong> to choose your theme sound, countdown timing, and which events count.</li>
+        <li>Keep the app running so it can refresh your calendar and show the countdown before meetings.</li>
       </ol>
     </section>
   </main>
 
   <footer>
-    <p>Open source layout — replace download link when your DMG is live.</p>
+    <p class="footer-line">
+      <span id="footer-intro"></span>
+      <a id="footer-privacy" href="privacy.html"></a>
+    </p>
   </footer>
 </body>
 </html>

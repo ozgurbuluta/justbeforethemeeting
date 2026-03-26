@@ -7,8 +7,8 @@
     "eyebrow": "macOS · Menu bar",
     "title": "Just Before The Meeting",
     "lede": "A tiny Mac app that lives in your menu bar, watches Google Calendar, and plays your news-style theme with a pulsing countdown right before the events you care about.",
-    "cta": "Download DMG (coming soon)",
-    "ctaNote": "Host your signed & notarized <code>JustBeforeTheMeeting.dmg</code> and point this button to its URL."
+    "cta": "Download for Mac (DMG)",
+    "ctaNote": "macOS 13+. Use a signed, notarized build from GitHub Releases when available."
   },
   "features": {
     "heading": "What it does",
@@ -23,13 +23,16 @@
   "how": {
     "heading": "How it works",
     "steps": [
-      "Download and open the app (after you notarize & distribute it).",
-      "Add your Google OAuth Client ID to the app’s <code>Info.plist</code> (or your build settings).",
-      "In Google Cloud Console, add authorized redirect URI: <code>jbtm://oauth</code>.",
-      "Connect Google, pick sound & rules in <strong>Settings</strong>, and keep the app running."
+      "Download the DMG, open it, and drag <strong>Just Before The Meeting</strong> into Applications.",
+      "Launch the app from your menu bar (JBTM icon), then choose <strong>Connect Google Calendar</strong> and complete sign-in in your browser.",
+      "Open <strong>Settings</strong> to choose your theme sound, countdown timing, and which events count.",
+      "Keep the app running so it can refresh your calendar and show the countdown before meetings."
     ]
   },
-  "footer": "Open source layout — replace download link when your DMG is live.",
+  "footer": {
+    "intro": "Open source on GitHub · Requires macOS 13+.",
+    "privacyLink": "Privacy policy"
+  },
   "langSwitcher": {
     "label": "Language"
   },

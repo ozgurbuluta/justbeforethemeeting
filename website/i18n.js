@@ -94,9 +94,13 @@
       langSelect.value = lang;
     }
 
-    const foot = document.querySelector("footer p");
-    if (foot && data.footer) {
-      foot.textContent = data.footer;
+    const footIntro = document.getElementById("footer-intro");
+    const footPrivacy = document.getElementById("footer-privacy");
+    if (footIntro && data.footer && data.footer.intro != null) {
+      footIntro.textContent = data.footer.intro;
+    }
+    if (footPrivacy && data.footer && data.footer.privacyLink != null) {
+      footPrivacy.textContent = data.footer.privacyLink;
     }
   }
 

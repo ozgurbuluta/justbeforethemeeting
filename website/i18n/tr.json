@@ -7,8 +7,8 @@
     "eyebrow": "macOS · Menü çubuğu",
     "title": "Just Before The Meeting",
     "lede": "Menü çubuğunda çalışan küçük bir Mac uygulaması: Google Takvim’i izler, haber tarzı temanızı çalar ve önem verdiğiniz etkinliklerden hemen önce nabız gibi bir geri sayım gösterir.",
-    "cta": "DMG indir (çok yakında)",
-    "ctaNote": "İmzalı ve notarize edilmiş <code>JustBeforeTheMeeting.dmg</code> dosyanızı barındırın ve bu düğmeyi o dosyanın adresine yönlendirin."
+    "cta": "Mac için indir (DMG)",
+    "ctaNote": "macOS 13+. Mümkün olduğunda GitHub Releases’taki imzalı ve notarize edilmiş sürümü kullanın."
   },
   "features": {
     "heading": "Ne yapar",
@@ -23,13 +23,16 @@
   "how": {
     "heading": "Nasıl çalışır",
     "steps": [
-      "Uygulamayı indirip açın (notarize edip dağıttıktan sonra).",
-      "Google OAuth İstemci Kimliğinizi uygulamanın <code>Info.plist</code> dosyasına (veya derleme ayarlarınıza) ekleyin.",
-      "Google Cloud Console’da yetkili yönlendirme URI’si olarak şunu ekleyin: <code>jbtm://oauth</code>.",
-      "Google’a bağlanın, <strong>Ayarlar</strong> üzerinden ses ve kuralları seçin ve uygulamayı çalışır halde tutun."
+      "DMG’yi indirip açın ve <strong>Just Before The Meeting</strong> uygulamasını Uygulamalar klasörüne sürükleyin.",
+      "Menü çubuğundaki JBTM simgesinden uygulamayı açın, <strong>Google Takvim’e bağlan</strong> deyip tarayıcıda oturumu tamamlayın.",
+      "<strong>Ayarlar</strong> üzerinden tema sesinizi, geri sayım sürelerinizi ve hangi etkinliklerin sayılacağını seçin.",
+      "Takvim yenilemesi ve toplantı öncesi geri sayım için uygulamayı çalışır durumda tutun."
     ]
   },
-  "footer": "Açık kaynak düzen — DMG yayına alındığında indirme bağlantısını güncelleyin.",
+  "footer": {
+    "intro": "Açık kaynak — kaynak kodu GitHub’da · macOS 13+ gerekir.",
+    "privacyLink": "Gizlilik politikası"
+  },
   "langSwitcher": {
     "label": "Dil"
   },
