@@ -10,18 +10,18 @@ struct CalendarSettingsView: View {
         Form {
             Section {
                 if oauth.clientID.isEmpty {
-                    Text("Add **GoogleOAuthClientID** to Info.plist. Create an OAuth **Desktop** client in Google Cloud Console and add redirect URI **jbtm://oauth**.")
+                    L10n.markdown("calendar.oauth_hint")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
 
-                LabeledContent("Status") {
-                    Text(oauth.isAuthorized ? "Connected" : "Not connected")
+                LabeledContent(L10n.s("calendar.status")) {
+                    Text(oauth.isAuthorized ? L10n.s("calendar.connected") : L10n.s("calendar.not_connected"))
                         .foregroundStyle(oauth.isAuthorized ? .green : .secondary)
                 }
 
                 if let sync = calendar.lastSync {
-                    LabeledContent("Last sync") {
+                    LabeledContent(L10n.s("calendar.last_sync")) {
                         Text(sync.formatted(date: .abbreviated, time: .shortened))
                     }
                 }
@@ -34,7 +34,7 @@ struct CalendarSettingsView: View {
             }
 
             Section {
-                Button("Sign in with Google…") {
+                Button(L10n.s("calendar.sign_in")) {
                     Task {
                         do {
                             try await oauth.signIn()
@@ -49,14 +49,14 @@ struct CalendarSettingsView: View {
                 }
                 .disabled(oauth.clientID.isEmpty)
 
-                Button("Disconnect", role: .destructive) {
+                Button(L10n.s("calendar.disconnect"), role: .destructive) {
                     oauth.signOut()
                     eventScheduler.stop()
                     eventScheduler.start()
                 }
                 .disabled(!oauth.isAuthorized)
 
-                Button("Sync now") {
+                Button(L10n.s("calendar.sync_now")) {
                     Task {
                         await calendar.refreshEvents()
                         await MainActor.run { eventScheduler.start() }

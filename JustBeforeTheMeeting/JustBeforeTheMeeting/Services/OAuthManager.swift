@@ -143,7 +143,7 @@ final class OAuthManager: NSObject, ObservableObject {
               let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value
         else {
             let errorBody = """
-            <html><body><h2>Sign-in failed</h2><p>No authorization code received. Close this tab and try again.</p></body></html>
+            <html><body><h2>\(L10n.s("oauth.html.error_title"))</h2><p>\(L10n.s("oauth.html.error_body"))</p></body></html>
             """
             Self.sendHTTPResponse(to: client, body: errorBody)
             close(client)
@@ -153,7 +153,7 @@ final class OAuthManager: NSObject, ObservableObject {
 
         let successBody = """
         <html><body style="font-family:-apple-system,sans-serif;text-align:center;padding:60px">
-        <h2>Signed in!</h2><p>You can close this tab and return to <b>Just Before The Meeting</b>.</p>
+        <h2>\(L10n.s("oauth.html.success_title"))</h2><p>\(L10n.s("oauth.html.success_body"))</p>
         </body></html>
         """
         Self.sendHTTPResponse(to: client, body: successBody)
@@ -292,17 +292,17 @@ final class OAuthManager: NSObject, ObservableObject {
         var errorDescription: String? {
             switch self {
             case .missingClientID:
-                return "Set GoogleOAuthClientID in Info.plist (Google Cloud OAuth client)."
+                return L10n.s("oauth.error.missing_client_id")
             case .invalidURL:
-                return "Invalid OAuth URL."
+                return L10n.s("oauth.error.invalid_url")
             case .missingCode:
-                return "OAuth did not return an authorization code."
+                return L10n.s("oauth.error.missing_code")
             case .notSignedIn:
-                return "Not signed in to Google."
+                return L10n.s("oauth.error.not_signed_in")
             case let .tokenExchangeFailed(msg):
-                return "Token exchange failed: \(msg)"
+                return L10n.s("oauth.error.token_exchange", msg)
             case .loopbackServerFailed:
-                return "Could not start local sign-in server."
+                return L10n.s("oauth.error.loopback_server")
             }
         }
     }

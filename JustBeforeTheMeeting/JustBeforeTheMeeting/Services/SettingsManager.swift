@@ -54,6 +54,26 @@ final class SettingsManager: ObservableObject {
         static let eventOverrides = "jbtm.eventOverrides"
         static let pollInterval = "jbtm.pollInterval"
         static let backupNotifications = "jbtm.backupNotifications"
+        static let uiLanguage = L10n.uiLanguageDefaultsKey
+    }
+
+    /// App UI language: English by default; Turkish optional from Settings. Not tied to macOS system language.
+    var uiLanguageCode: String {
+        get {
+            (UserDefaults.standard.string(forKey: Keys.uiLanguage) ?? "en") == "tr" ? "tr" : "en"
+        }
+        set {
+            let v = newValue == "tr" ? "tr" : "en"
+            let previous = (UserDefaults.standard.string(forKey: Keys.uiLanguage) ?? "en") == "tr" ? "tr" : "en"
+            guard v != previous else { return }
+            UserDefaults.standard.set(v, forKey: Keys.uiLanguage)
+            objectWillChange.send()
+            NotificationCenter.default.post(name: .jbtmUILanguageDidChange, object: nil)
+        }
+    }
+
+    var preferredLocale: Locale {
+        Locale(identifier: uiLanguageCode == "tr" ? "tr_TR" : "en_US")
     }
 
     init() {

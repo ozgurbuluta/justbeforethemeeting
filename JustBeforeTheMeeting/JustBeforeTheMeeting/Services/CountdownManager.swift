@@ -67,17 +67,18 @@ final class CountdownManager: ObservableObject {
         )
 
         let df = DateFormatter()
+        df.locale = settings.preferredLocale
         df.dateStyle = .medium
         df.timeStyle = .short
-        button.toolTip = "\(next.title)\nStarts \(df.string(from: next.start))"
+        button.toolTip = "\(next.title)\n\(L10n.s("countdown.event_tooltip_starts", df.string(from: next.start)))"
     }
 
     private func applyFallbackIdleTitle(to button: NSStatusBarButton) {
         button.attributedTitle = NSAttributedString(
-            string: "JBTM",
+            string: L10n.s("countdown.fallback_abbrev"),
             attributes: [.font: NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)]
         )
-        button.toolTip = "Just Before The Meeting"
+        button.toolTip = L10n.s("app.name")
     }
 
     private func refreshIdleTitleIfNeeded() {
@@ -122,7 +123,7 @@ final class CountdownManager: ObservableObject {
 
     func beginManualTest(audio: AudioManager) {
         let s = settings.countdownDurationSeconds
-        startCountdown(seconds: s, meetingTitle: "Test", audio: audio, notify: false)
+        startCountdown(seconds: s, meetingTitle: L10n.s("countdown.test_meeting_title"), audio: audio, notify: false)
     }
 
     func cancel(userInitiated: Bool = true, audio: AudioManager? = nil) {
@@ -173,7 +174,7 @@ final class CountdownManager: ObservableObject {
         guard let button = statusItem?.button else { return }
         let m = remainingSeconds / 60
         let s = remainingSeconds % 60
-        let timeText = String(format: "⏰ %d:%02d", m, s)
+        let timeText = String(format: L10n.s("countdown.time_clock"), m, s)
 
         let nameColor: NSColor
         if pulseOn {
@@ -202,12 +203,12 @@ final class CountdownManager: ObservableObject {
 
     private func compactTimeUntil(_ date: Date, from now: Date) -> String {
         let sec = max(0, date.timeIntervalSince(now))
-        if sec < 60 { return "<1m" }
+        if sec < 60 { return L10n.s("time.until.less_than_minute") }
         let minutes = Int(ceil(sec / 60))
-        if minutes < 60 { return "\(minutes)m" }
+        if minutes < 60 { return L10n.s("time.until.minutes", minutes) }
         let h = minutes / 60
         let rem = minutes % 60
-        return rem > 0 ? "\(h)h \(rem)m" : "\(h)h"
+        return rem > 0 ? L10n.s("time.until.hours_minutes", h, rem) : L10n.s("time.until.hours_only", h)
     }
 
     private func truncateMeetingTitle(_ s: String, maxUTF8: Int) -> String {

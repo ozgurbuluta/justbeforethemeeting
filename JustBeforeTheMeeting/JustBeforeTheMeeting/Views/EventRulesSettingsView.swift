@@ -6,20 +6,20 @@ struct EventRulesSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Rules") {
-                Picker("Which events", selection: $settings.eventFilterMode) {
+            Section(L10n.s("events.section.rules")) {
+                Picker(L10n.s("events.which_events"), selection: $settings.eventFilterMode) {
                     ForEach(EventFilterMode.allCases) { mode in
                         Text(mode.displayName).tag(mode)
                     }
                 }
                 if settings.eventFilterMode == .keyword {
-                    TextField("Keyword in title", text: $settings.keywordFilter)
+                    TextField(L10n.s("events.keyword_placeholder"), text: $settings.keywordFilter)
                 }
             }
 
-            Section("Upcoming (per-event override)") {
+            Section(L10n.s("events.section.upcoming")) {
                 if calendar.events.isEmpty {
-                    Text("Connect Google Calendar and sync to see events.")
+                    Text(L10n.s("events.empty_hint"))
                         .foregroundStyle(.secondary)
                 } else {
                     List(Array(calendar.events.prefix(40))) { event in

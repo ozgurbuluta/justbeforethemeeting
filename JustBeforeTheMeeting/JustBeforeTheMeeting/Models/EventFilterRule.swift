@@ -9,9 +9,9 @@ enum EventFilterMode: String, CaseIterable, Identifiable, Codable {
 
     var displayName: String {
         switch self {
-        case .all: return "All events"
-        case .videoOnly: return "Only events with video links"
-        case .keyword: return "Only events matching keyword"
+        case .all: return L10n.s("filter.all_events")
+        case .videoOnly: return L10n.s("filter.video_only")
+        case .keyword: return L10n.s("filter.keyword")
         }
     }
 }

@@ -8,8 +8,8 @@ enum UNNotificationHelper {
 
     static func notifyCountdownStarted(title: String, seconds: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "Meeting soon"
-        content.body = "\(title) — \(seconds)s countdown in menu bar."
+        content.title = L10n.s("notification.countdown_title")
+        content.body = L10n.s("notification.countdown_body", title, Int64(seconds))
         content.sound = .default
 
         let request = UNNotificationRequest(

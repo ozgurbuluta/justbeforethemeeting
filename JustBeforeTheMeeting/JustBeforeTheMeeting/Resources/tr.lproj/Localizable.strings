@@ -1,0 +1,98 @@
+/* Menu bar & main menu */
+"app.name" = "Just Before The Meeting";
+"menu.settings" = "Ayarlar…";
+"menu.test_sound" = "Sesi dene (5 sn önizleme)";
+"menu.test_countdown" = "Geri sayım + müzik dene";
+"menu.sync_calendar" = "Takvimi şimdi senkronize et";
+"menu.about" = "Hakkında";
+"menu.quit" = "Çıkış";
+"menu.connect_calendar" = "Google Takvim’e bağlan";
+"menu.reconnect_calendar" = "Google Takvim’i yeniden bağla";
+"menu.disconnect_google" = "Google bağlantısını kes";
+"menu.upcoming_header" = "Yaklaşan geri sayım tetikleyicileri";
+"menu.upcoming_connect_prompt" = "Planlanmış geri sayımları görmek için Google Takvim’e bağlanın";
+"menu.upcoming_empty" = "Önümüzdeki 48 saatte eşleşen etkinlik yok";
+"about.body" = "Toplantılarınızdan önce menü çubuğunda geri sayım ve tema müziği.\n\nGoogle OAuth İstemci Kimliğinizi Info.plist dosyasına (GoogleOAuthClientID) ekleyin.";
+"status.music_imminently" = "müzik çok yakında";
+"status.music_relative_prefix" = "müzik ";
+"status.upcoming_line" = "%1$@ — %2$@, başlangıç %3$@ (%4$@)";
+
+/* Countdown / status item */
+"countdown.fallback_abbrev" = "JBTM";
+"countdown.event_tooltip_starts" = "Başlangıç: %@";
+"countdown.test_meeting_title" = "Test";
+"countdown.time_clock" = "⏰ %d:%02d";
+"time.until.less_than_minute" = "<1dk";
+"time.until.minutes" = "%ddk";
+"time.until.hours_minutes" = "%1$dsa %2$ddk";
+"time.until.hours_only" = "%dsa";
+
+/* Settings window */
+"settings.window_title" = "Just Before The Meeting — Ayarlar";
+
+/* Settings tabs */
+"tab.calendar" = "Takvim";
+"tab.events" = "Etkinlikler";
+"tab.sound" = "Ses";
+"tab.general" = "Genel";
+
+/* General settings */
+"general.ui_language" = "Uygulama dili";
+"section.countdown" = "Geri sayım";
+"section.calendar_refresh" = "Takvim yenileme";
+"section.notifications" = "Bildirimler";
+"section.login_item" = "Oturum açma öğesi";
+"general.countdown_length" = "Geri sayım süresi: **%lld sn**";
+"general.advance_warning" = "Ön uyarı: başlangıçtan **%lld sn** önce";
+"general.countdown_hint" = "Müzik ve menü çubuğu süresi, geri sayım süresi ile etkinliğe kalan süreden kısa olanı kadar çalar.";
+"general.poll_interval" = "Yoklama aralığı";
+"general.poll_1m" = "1 dk";
+"general.poll_5m" = "5 dk";
+"general.poll_15m" = "15 dk";
+"general.backup_notification" = "Geri sayım başladığında yedek bildirim";
+"general.open_at_login" = "Açılışta çalıştır";
+
+/* Calendar settings */
+"calendar.oauth_hint" = "**GoogleOAuthClientID** değerini Info.plist dosyasına ekleyin. Google Cloud Console’da OAuth **Masaüstü** istemcisi oluşturun ve yönlendirme URI’si olarak **jbtm://oauth** ekleyin.";
+"calendar.status" = "Durum";
+"calendar.connected" = "Bağlı";
+"calendar.not_connected" = "Bağlı değil";
+"calendar.last_sync" = "Son senkronizasyon";
+"calendar.sign_in" = "Google ile oturum aç…";
+"calendar.disconnect" = "Bağlantıyı kes";
+"calendar.sync_now" = "Şimdi senkronize et";
+
+/* Event rules */
+"events.section.rules" = "Kurallar";
+"events.which_events" = "Hangi etkinlikler";
+"events.keyword_placeholder" = "Başlıktaki anahtar kelime";
+"events.section.upcoming" = "Yaklaşanlar (etkinlik bazında geçersiz kılma)";
+"events.empty_hint" = "Etkinlikleri görmek için Google Takvim’e bağlanıp senkronize edin.";
+"filter.all_events" = "Tüm etkinlikler";
+"filter.video_only" = "Yalnızca video bağlantılı etkinlikler";
+"filter.keyword" = "Yalnızca anahtar kelimeyle eşleşenler";
+
+/* Sound */
+"sound.section_file" = "Ses dosyası";
+"sound.default_theme_hint" = "Varsa uygulama paketindeki **default_theme** kullanılır (mp3/m4a).";
+"sound.choose_file" = "Ses dosyası seç…";
+"sound.test_preview" = "Önizleme dene (5 sn)";
+"sound.section_volume" = "Ses düzeyi";
+"sound.volume_label" = "Ses düzeyi";
+"sound.volume_percent" = "%lld%%";
+
+/* Notifications */
+"notification.countdown_title" = "Toplantı yaklaşıyor";
+"notification.countdown_body" = "%1$@ — menü çubuğunda %2$lld sn geri sayım.";
+
+/* OAuth */
+"oauth.error.missing_client_id" = "Info.plist dosyasına GoogleOAuthClientID ekleyin (Google Cloud OAuth istemcisi).";
+"oauth.error.invalid_url" = "Geçersiz OAuth adresi.";
+"oauth.error.missing_code" = "OAuth yetkilendirme kodu döndürmedi.";
+"oauth.error.not_signed_in" = "Google’da oturum açılmadı.";
+"oauth.error.token_exchange" = "Jeton değişimi başarısız: %@";
+"oauth.error.loopback_server" = "Yerel oturum açma sunucusu başlatılamadı.";
+"oauth.html.error_title" = "Oturum açılamadı";
+"oauth.html.error_body" = "Yetkilendirme kodu alınamadı. Bu sekmeyi kapatıp yeniden deneyin.";
+"oauth.html.success_title" = "Oturum açıldı!";
+"oauth.html.success_body" = "Bu sekmeyi kapatabilir ve <b>Just Before The Meeting</b> uygulamasına dönebilirsiniz.";

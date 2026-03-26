@@ -3,6 +3,29 @@ import SwiftUI
 
 final class SettingsWindowController: NSWindowController {
     private static var instance: SettingsWindowController?
+    private var languageObserver: NSObjectProtocol?
+
+    override init(window: NSWindow?) {
+        super.init(window: window)
+        languageObserver = NotificationCenter.default.addObserver(
+            forName: .jbtmUILanguageDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.window?.title = L10n.s("settings.window_title")
+        }
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        if let languageObserver {
+            NotificationCenter.default.removeObserver(languageObserver)
+        }
+    }
 
     static func present(
         settings: SettingsManager,
@@ -26,7 +49,7 @@ final class SettingsWindowController: NSWindowController {
                 backing: .buffered,
                 defer: false
             )
-            window.title = "Just Before The Meeting — Settings"
+            window.title = L10n.s("settings.window_title")
             window.contentViewController = hosting
             window.center()
             window.setFrameAutosaveName("SettingsWindow")

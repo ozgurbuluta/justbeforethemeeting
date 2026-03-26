@@ -17,6 +17,7 @@ final class StatusBarController: NSObject {
     /// Index where upcoming-countdown rows are inserted (after Settings + separator).
     private var upcomingSectionInsertIndex: Int = 0
     private static let upcomingMenuTag = 9900
+    private var languageObserver: NSObjectProtocol?
 
     init(
         settings: SettingsManager,
@@ -38,11 +39,27 @@ final class StatusBarController: NSObject {
         super.init()
         configureButton()
         buildMenu()
+        languageObserver = NotificationCenter.default.addObserver(
+            forName: .jbtmUILanguageDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.rebuildMenuForLanguageChange()
+                self?.configureButton()
+            }
+        }
+    }
+
+    deinit {
+        if let languageObserver {
+            NotificationCenter.default.removeObserver(languageObserver)
+        }
     }
 
     private func configureButton() {
         if let button = statusItem.button {
-            button.toolTip = "Just Before The Meeting"
+            button.toolTip = L10n.s("app.name")
             button.target = self
             button.action = #selector(statusBarClicked(_:))
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -61,8 +78,16 @@ final class StatusBarController: NSObject {
     private func buildMenu() {
         menu = NSMenu()
         menu.delegate = self
+        populateMenuItems()
+    }
 
-        let settingsItem = NSMenuItem(title: "Settings…", action: #selector(openSettingsMenu), keyEquivalent: ",")
+    private func rebuildMenuForLanguageChange() {
+        menu.removeAllItems()
+        populateMenuItems()
+    }
+
+    private func populateMenuItems() {
+        let settingsItem = NSMenuItem(title: L10n.s("menu.settings"), action: #selector(openSettingsMenu), keyEquivalent: ",")
         settingsItem.target = self
         menu.addItem(settingsItem)
 
@@ -78,25 +103,25 @@ final class StatusBarController: NSObject {
 
         menu.addItem(NSMenuItem.separator())
 
-        let testSound = NSMenuItem(title: "Test Sound (5s preview)", action: #selector(testSound), keyEquivalent: "")
+        let testSound = NSMenuItem(title: L10n.s("menu.test_sound"), action: #selector(testSound), keyEquivalent: "")
         testSound.target = self
         menu.addItem(testSound)
 
-        let testCountdown = NSMenuItem(title: "Test Countdown + Music", action: #selector(testCountdown), keyEquivalent: "")
+        let testCountdown = NSMenuItem(title: L10n.s("menu.test_countdown"), action: #selector(testCountdown), keyEquivalent: "")
         testCountdown.target = self
         menu.addItem(testCountdown)
 
-        let syncItem = NSMenuItem(title: "Sync Calendar Now", action: #selector(syncNow), keyEquivalent: "")
+        let syncItem = NSMenuItem(title: L10n.s("menu.sync_calendar"), action: #selector(syncNow), keyEquivalent: "")
         syncItem.target = self
         menu.addItem(syncItem)
 
         menu.addItem(NSMenuItem.separator())
 
-        let aboutItem = NSMenuItem(title: "About", action: #selector(showAbout), keyEquivalent: "")
+        let aboutItem = NSMenuItem(title: L10n.s("menu.about"), action: #selector(showAbout), keyEquivalent: "")
         aboutItem.target = self
         menu.addItem(aboutItem)
 
-        let quitItem = NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q")
+        let quitItem = NSMenuItem(title: L10n.s("menu.quit"), action: #selector(quit), keyEquivalent: "q")
         quitItem.target = self
         menu.addItem(quitItem)
     }
@@ -136,14 +161,14 @@ final class StatusBarController: NSObject {
     }
 
     private func makeConnectMenuItem() -> NSMenuItem {
-        let connectTitle = oauth.isAuthorized ? "Reconnect Google Calendar" : "Connect Google Calendar"
+        let connectTitle = oauth.isAuthorized ? L10n.s("menu.reconnect_calendar") : L10n.s("menu.connect_calendar")
         let connectItem = NSMenuItem(title: connectTitle, action: #selector(connectCalendar), keyEquivalent: "")
         connectItem.target = self
         return connectItem
     }
 
     private func makeDisconnectMenuItem() -> NSMenuItem {
-        let disconnectItem = NSMenuItem(title: "Disconnect Google", action: #selector(disconnectCalendar), keyEquivalent: "")
+        let disconnectItem = NSMenuItem(title: L10n.s("menu.disconnect_google"), action: #selector(disconnectCalendar), keyEquivalent: "")
         disconnectItem.target = self
         disconnectItem.isEnabled = oauth.isAuthorized
         return disconnectItem
@@ -158,8 +183,8 @@ final class StatusBarController: NSObject {
 
     @objc private func showAbout() {
         let alert = NSAlert()
-        alert.messageText = "Just Before The Meeting"
-        alert.informativeText = "Menu bar countdown and theme before your meetings.\n\nSet your Google OAuth Client ID in Info.plist (GoogleOAuthClientID)."
+        alert.messageText = L10n.s("app.name")
+        alert.informativeText = L10n.s("about.body")
         alert.alertStyle = .informational
         alert.runModal()
     }
@@ -172,7 +197,7 @@ final class StatusBarController: NSObject {
 extension StatusBarController: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         guard menu === self.menu else { return }
-        connectMenuItem?.title = oauth.isAuthorized ? "Reconnect Google Calendar" : "Connect Google Calendar"
+        connectMenuItem?.title = oauth.isAuthorized ? L10n.s("menu.reconnect_calendar") : L10n.s("menu.connect_calendar")
         disconnectMenuItem?.isEnabled = oauth.isAuthorized
         refreshUpcomingCountdownSection()
     }
@@ -196,36 +221,38 @@ extension StatusBarController: NSMenuDelegate {
         }
 
         var items: [NSMenuItem] = []
-        items.append(taggedHeader("Upcoming countdown triggers"))
+        items.append(taggedHeader(L10n.s("menu.upcoming_header")))
 
         if !oauth.isAuthorized {
-            items.append(taggedHeader("Connect Google Calendar to see scheduled countdowns"))
+            items.append(taggedHeader(L10n.s("menu.upcoming_connect_prompt")))
             return items
         }
 
         let upcoming = settings.upcomingCountdownItems(from: calendar.events)
         if upcoming.isEmpty {
-            items.append(taggedHeader("No matching events in the next 48 hours"))
+            items.append(taggedHeader(L10n.s("menu.upcoming_empty")))
             return items
         }
 
         let now = Date()
         let rel = RelativeDateTimeFormatter()
+        rel.locale = settings.preferredLocale
         rel.unitsStyle = .abbreviated
         let clock = DateFormatter()
+        clock.locale = settings.preferredLocale
         clock.timeStyle = .short
         clock.dateStyle = .none
 
         for u in upcoming {
             let musicHint: String
             if u.triggerDate <= now {
-                musicHint = "music imminently"
+                musicHint = L10n.s("status.music_imminently")
             } else {
-                musicHint = "music " + rel.localizedString(for: u.triggerDate, relativeTo: now)
+                musicHint = L10n.s("status.music_relative_prefix") + rel.localizedString(for: u.triggerDate, relativeTo: now)
             }
             let startClock = clock.string(from: u.event.start)
             let startRel = rel.localizedString(for: u.event.start, relativeTo: now)
-            let line = "\(u.event.title) — \(musicHint), starts \(startClock) (\(startRel))"
+            let line = L10n.s("status.upcoming_line", u.event.title, musicHint, startClock, startRel)
             items.append(taggedHeader(line))
         }
         return items

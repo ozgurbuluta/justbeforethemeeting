@@ -6,32 +6,32 @@ struct SoundSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Audio file") {
+            Section(L10n.s("sound.section_file")) {
                 if let path = settings.customSoundPath {
                     Text(path)
                         .font(.caption)
                         .lineLimit(2)
                         .textSelection(.enabled)
                 } else {
-                    Text("Using **default_theme** from the app bundle if present (mp3/m4a).")
+                    L10n.markdown("sound.default_theme_hint")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
 
-                Button("Choose sound file…") {
+                Button(L10n.s("sound.choose_file")) {
                     _ = audio.pickCustomSoundFile()
                 }
 
-                Button("Test preview (5s)") {
+                Button(L10n.s("sound.test_preview")) {
                     audio.preview()
                 }
             }
 
-            Section("Volume") {
+            Section(L10n.s("sound.section_volume")) {
                 Slider(value: $settings.volume, in: 0 ... 1) {
-                    Text("Volume")
+                    Text(L10n.s("sound.volume_label"))
                 }
-                Text("\(Int(settings.volume * 100))%")
+                Text(L10n.s("sound.volume_percent", Int64(Int(settings.volume * 100))))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

@@ -1,0 +1,98 @@
+/* Menu bar & main menu */
+"app.name" = "Just Before The Meeting";
+"menu.settings" = "Settings…";
+"menu.test_sound" = "Test Sound (5s preview)";
+"menu.test_countdown" = "Test Countdown + Music";
+"menu.sync_calendar" = "Sync Calendar Now";
+"menu.about" = "About";
+"menu.quit" = "Quit";
+"menu.connect_calendar" = "Connect Google Calendar";
+"menu.reconnect_calendar" = "Reconnect Google Calendar";
+"menu.disconnect_google" = "Disconnect Google";
+"menu.upcoming_header" = "Upcoming countdown triggers";
+"menu.upcoming_connect_prompt" = "Connect Google Calendar to see scheduled countdowns";
+"menu.upcoming_empty" = "No matching events in the next 48 hours";
+"about.body" = "Menu bar countdown and theme before your meetings.\n\nSet your Google OAuth Client ID in Info.plist (GoogleOAuthClientID).";
+"status.music_imminently" = "music imminently";
+"status.music_relative_prefix" = "music ";
+"status.upcoming_line" = "%1$@ — %2$@, starts %3$@ (%4$@)";
+
+/* Countdown / status item */
+"countdown.fallback_abbrev" = "JBTM";
+"countdown.event_tooltip_starts" = "Starts %@";
+"countdown.test_meeting_title" = "Test";
+"countdown.time_clock" = "⏰ %d:%02d";
+"time.until.less_than_minute" = "<1m";
+"time.until.minutes" = "%dm";
+"time.until.hours_minutes" = "%1$dh %2$dm";
+"time.until.hours_only" = "%dh";
+
+/* Settings window */
+"settings.window_title" = "Just Before The Meeting — Settings";
+
+/* Settings tabs */
+"tab.calendar" = "Calendar";
+"tab.events" = "Events";
+"tab.sound" = "Sound";
+"tab.general" = "General";
+
+/* General settings */
+"general.ui_language" = "App language";
+"section.countdown" = "Countdown";
+"section.calendar_refresh" = "Calendar refresh";
+"section.notifications" = "Notifications";
+"section.login_item" = "Login item";
+"general.countdown_length" = "Countdown length: **%llds**";
+"general.advance_warning" = "Advance warning: **%llds** before start";
+"general.countdown_hint" = "Music and the menu bar timer run for the shorter of countdown length and time until the event starts.";
+"general.poll_interval" = "Poll interval";
+"general.poll_1m" = "1 min";
+"general.poll_5m" = "5 min";
+"general.poll_15m" = "15 min";
+"general.backup_notification" = "Backup notification when countdown starts";
+"general.open_at_login" = "Open at login";
+
+/* Calendar settings */
+"calendar.oauth_hint" = "Add **GoogleOAuthClientID** to Info.plist. Create an OAuth **Desktop** client in Google Cloud Console and add redirect URI **jbtm://oauth**.";
+"calendar.status" = "Status";
+"calendar.connected" = "Connected";
+"calendar.not_connected" = "Not connected";
+"calendar.last_sync" = "Last sync";
+"calendar.sign_in" = "Sign in with Google…";
+"calendar.disconnect" = "Disconnect";
+"calendar.sync_now" = "Sync now";
+
+/* Event rules */
+"events.section.rules" = "Rules";
+"events.which_events" = "Which events";
+"events.keyword_placeholder" = "Keyword in title";
+"events.section.upcoming" = "Upcoming (per-event override)";
+"events.empty_hint" = "Connect Google Calendar and sync to see events.";
+"filter.all_events" = "All events";
+"filter.video_only" = "Only events with video links";
+"filter.keyword" = "Only events matching keyword";
+
+/* Sound */
+"sound.section_file" = "Audio file";
+"sound.default_theme_hint" = "Using **default_theme** from the app bundle if present (mp3/m4a).";
+"sound.choose_file" = "Choose sound file…";
+"sound.test_preview" = "Test preview (5s)";
+"sound.section_volume" = "Volume";
+"sound.volume_label" = "Volume";
+"sound.volume_percent" = "%lld%%";
+
+/* Notifications */
+"notification.countdown_title" = "Meeting soon";
+"notification.countdown_body" = "%1$@ — %2$llds countdown in menu bar.";
+
+/* OAuth (errors + browser pages) */
+"oauth.error.missing_client_id" = "Set GoogleOAuthClientID in Info.plist (Google Cloud OAuth client).";
+"oauth.error.invalid_url" = "Invalid OAuth URL.";
+"oauth.error.missing_code" = "OAuth did not return an authorization code.";
+"oauth.error.not_signed_in" = "Not signed in to Google.";
+"oauth.error.token_exchange" = "Token exchange failed: %@";
+"oauth.error.loopback_server" = "Could not start local sign-in server.";
+"oauth.html.error_title" = "Sign-in failed";
+"oauth.html.error_body" = "No authorization code received. Close this tab and try again.";
+"oauth.html.success_title" = "Signed in!";
+"oauth.html.success_body" = "You can close this tab and return to <b>Just Before The Meeting</b>.";

@@ -6,25 +6,35 @@
   <title>Just Before The Meeting — macOS menu bar countdown</title>
   <meta name="description" content="Menu bar app for Mac: Google Calendar aware countdown and theme music before your meetings." />
   <link rel="stylesheet" href="style.css" />
+  <script src="i18n.js" defer></script>
 </head>
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <p class="eyebrow">macOS · Menu bar</p>
-      <h1>Just Before The Meeting</h1>
-      <p class="lede">
+      <div class="hero-top">
+        <p class="eyebrow" data-i18n="hero.eyebrow">macOS · Menu bar</p>
+        <div class="lang-switcher">
+          <label for="lang-select" class="lang-select-label" data-i18n="langSwitcher.label">Language</label>
+          <select id="lang-select" class="lang-select" name="lang">
+            <option value="en">English</option>
+            <option value="tr">Türkçe</option>
+          </select>
+        </div>
+      </div>
+      <h1 data-i18n="hero.title">Just Before The Meeting</h1>
+      <p class="lede" data-i18n="hero.lede">
         A tiny Mac app that lives in your menu bar, watches Google Calendar, and plays your news-style theme
         with a pulsing countdown right before the events you care about.
       </p>
       <a class="cta" href="#" id="download-link" aria-disabled="true">Download DMG (coming soon)</a>
-      <p class="cta-note">Host your signed &amp; notarized <code>JustBeforeTheMeeting.dmg</code> and point this button to its URL.</p>
+      <p class="cta-note" id="cta-note">Host your signed &amp; notarized <code>JustBeforeTheMeeting.dmg</code> and point this button to its URL.</p>
     </div>
   </header>
 
   <main>
     <section class="features">
-      <h2>What it does</h2>
-      <ul>
+      <h2 data-i18n="features.heading">What it does</h2>
+      <ul id="features-list">
         <li><strong>Background menu bar app</strong> — no Dock icon; always within reach.</li>
         <li><strong>Google Calendar</strong> — OAuth sign-in, polls your calendars, respects filters.</li>
         <li><strong>Custom sound</strong> — bring your own news sting (mp3/m4a) or bundle <code>default_theme</code>.</li>
@@ -34,8 +44,8 @@
     </section>
 
     <section class="how">
-      <h2>How it works</h2>
-      <ol>
+      <h2 data-i18n="how.heading">How it works</h2>
+      <ol id="how-list">
         <li>Download and open the app (after you notarize &amp; distribute it).</li>
         <li>Add your Google OAuth Client ID to the app’s <code>Info.plist</code> (or your build settings).</li>
         <li>In Google Cloud Console, add authorized redirect URI: <code>jbtm://oauth</code>.</li>

@@ -7,32 +7,44 @@ struct GeneralSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Countdown") {
+            Section(L10n.s("general.ui_language")) {
+                Picker("", selection: Binding(
+                    get: { settings.uiLanguageCode },
+                    set: { settings.uiLanguageCode = $0 }
+                )) {
+                    Text("English").tag("en")
+                    Text("Türkçe").tag("tr")
+                }
+                .labelsHidden()
+                .pickerStyle(.segmented)
+            }
+
+            Section(L10n.s("section.countdown")) {
                 Stepper(value: $settings.countdownDurationSeconds, in: 5 ... 300, step: 5) {
-                    Text("Countdown length: **\(settings.countdownDurationSeconds)s**")
+                    L10n.markdownFormat("general.countdown_length", Int64(settings.countdownDurationSeconds))
                 }
                 Stepper(value: $settings.advanceWarningSeconds, in: 5 ... 300, step: 5) {
-                    Text("Advance warning: **\(settings.advanceWarningSeconds)s** before start")
+                    L10n.markdownFormat("general.advance_warning", Int64(settings.advanceWarningSeconds))
                 }
-                Text("Music and the menu bar timer run for the shorter of countdown length and time until the event starts.")
+                L10n.markdown("general.countdown_hint")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
-            Section("Calendar refresh") {
-                Picker("Poll interval", selection: $settings.calendarPollIntervalSeconds) {
-                    Text("1 min").tag(60.0)
-                    Text("5 min").tag(300.0)
-                    Text("15 min").tag(900.0)
+            Section(L10n.s("section.calendar_refresh")) {
+                Picker(L10n.s("general.poll_interval"), selection: $settings.calendarPollIntervalSeconds) {
+                    Text(L10n.s("general.poll_1m")).tag(60.0)
+                    Text(L10n.s("general.poll_5m")).tag(300.0)
+                    Text(L10n.s("general.poll_15m")).tag(900.0)
                 }
             }
 
-            Section("Notifications") {
-                Toggle("Backup notification when countdown starts", isOn: $settings.backupNotificationsEnabled)
+            Section(L10n.s("section.notifications")) {
+                Toggle(L10n.s("general.backup_notification"), isOn: $settings.backupNotificationsEnabled)
             }
 
-            Section("Login item") {
-                Toggle("Open at login", isOn: $launchAtLogin)
+            Section(L10n.s("section.login_item")) {
+                Toggle(L10n.s("general.open_at_login"), isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { new in
                         do {
                             try settings.setLaunchAtLogin(new)

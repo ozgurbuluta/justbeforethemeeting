@@ -29,6 +29,10 @@
 		BF0000000000000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000014 /* Assets.xcassets */; };
 		BF0000000000000000000015 /* default_theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000017 /* default_theme.mp3 */; };
 		BF0000000000000000000016 /* UpcomingCountdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000020 /* UpcomingCountdownItem.swift */; };
+		BF0000000000000000000017 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000021 /* L10n.swift */; };
+		BF0000000000000000000018 /* L10n+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000022 /* L10n+SwiftUI.swift */; };
+		BF0000000000000000000019 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = VG0000000000000000000001 /* Localizable.strings */; };
+		BF000000000000000000001A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FR0000000000000000000024 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,11 @@
 		FR0000000000000000000019 /* Secrets.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Secrets.example.xcconfig; path = Config/Secrets.example.xcconfig; sourceTree = "<group>"; };
 		FR0000000000000000000016 /* JustBeforeTheMeeting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustBeforeTheMeeting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR0000000000000000000020 /* UpcomingCountdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCountdownItem.swift; sourceTree = "<group>"; };
+		FR0000000000000000000021 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		FR0000000000000000000022 /* L10n+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "L10n+SwiftUI.swift"; sourceTree = "<group>"; };
+		FR0000000000000000000023 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FR0000000000000000000024 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FR0000000000000000000025 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +106,7 @@
 				G000000000000000000000005 /* Services */,
 				G000000000000000000000006 /* Models */,
 				G000000000000000000000007 /* Views */,
+				G00000000000000000000000A /* Utilities */,
 				G000000000000000000000008 /* Resources */,
 			);
 			path = JustBeforeTheMeeting;
@@ -163,11 +173,34 @@
 			children = (
 				FR0000000000000000000014 /* Assets.xcassets */,
 				FR0000000000000000000017 /* default_theme.mp3 */,
+				VG0000000000000000000001 /* Localizable.strings */,
+				FR0000000000000000000024 /* InfoPlist.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		G00000000000000000000000A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FR0000000000000000000021 /* L10n.swift */,
+				FR0000000000000000000022 /* L10n+SwiftUI.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXVariantGroup section */
+		VG0000000000000000000001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FR0000000000000000000023 /* en */,
+				FR0000000000000000000025 /* tr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin PBXNativeTarget section */
 		NT00000000000000000000001 /* JustBeforeTheMeeting */ = {
@@ -208,6 +241,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				tr,
 				Base,
 			);
 			mainGroup = G000000000000000000000001;
@@ -227,6 +261,8 @@
 			files = (
 				BF0000000000000000000014 /* Assets.xcassets in Resources */,
 				BF0000000000000000000015 /* default_theme.mp3 in Resources */,
+				BF0000000000000000000019 /* Localizable.strings in Resources */,
+				BF000000000000000000001A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +293,8 @@
 				BF0000000000000000000011 /* SoundSettingsView.swift in Sources */,
 				BF0000000000000000000012 /* GeneralSettingsView.swift in Sources */,
 				BF0000000000000000000013 /* EventRulesSettingsView.swift in Sources */,
+				BF0000000000000000000017 /* L10n.swift in Sources */,
+				BF0000000000000000000018 /* L10n+SwiftUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
