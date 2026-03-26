@@ -2,7 +2,7 @@
 
 A native macOS **menu bar app** that connects to **Google Calendar**, plays your **custom news-style theme music** with a **pulsing countdown** in the menu bar before selected meetings.
 
-**First-time setup?** Follow the detailed walkthrough: **[docs/SETUP.md](docs/SETUP.md)**
+**Setup and ship checklist:** **[docs/next-steps.md](docs/next-steps.md)** (Google OAuth for all users, notarization, GitHub Releases, Pages)
 
 ---
 
@@ -34,7 +34,7 @@ JustBeforeTheMeeting/          Xcode project and Swift sources
     Info.plist                 Uses $(GOOGLE_OAUTH_CLIENT_ID) and $(GOOGLE_OAUTH_CLIENT_SECRET)
 website/                       Static landing page (replace download link when you ship)
 scripts/build-and-distribute.sh  Archive → sign → DMG → notarize
-docs/SETUP.md                 Step-by-step first-time setup guide
+docs/next-steps.md            Step-by-step: dev, Google production OAuth, notarize, deploy
 ```
 
 ## Quick start
