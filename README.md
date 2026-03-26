@@ -100,7 +100,7 @@ Google Calendar API
 
 ## Website (GitHub Pages)
 
-The [`website/`](website/) folder deploys with **GitHub Actions** (`.github/workflows/deploy-pages.yml`) when you push to `main`. In the repo’s **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”) so the workflow can publish.
+The [`website/`](website/) folder deploys with **GitHub Actions** (`.github/workflows/deploy-pages.yml`) when you push to `main`. In the repo’s **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”) so the workflow can publish. If the workflow fails with **Failed to create deployment (404)**, Pages is not enabled yet—open **Settings → Pages**, choose **GitHub Actions**, save, then re-run the failed workflow or push an empty commit.
 
 ## Distribution (optional)
 
