@@ -101,6 +101,28 @@ Follow **GitHub Pages (public repo)** above.
 - [ ] Google sign-in with a non–test-user account  
 - [ ] Calendar + countdown + sound  
 
+### G. Google OAuth verification remediation (Search Console, videos, reply)
+
+Use this after Google emails you about **domain verification**, **privacy policy**, or **demo videos**.
+
+1. **Search Console — verify `ozgurbuluta.github.io`**
+   - [Search Console](https://search.google.com/search-console) → add a **URL-prefix** property for `https://ozgurbuluta.github.io/` (or your exact Pages base URL).
+   - Choose **HTML tag** verification: copy Google’s `<meta name="google-site-verification" …>`.
+   - In the repo, open `website/index.html`, **uncomment** the placeholder line next to the Search Console comment, paste your **content** token, commit, deploy Pages, then click **Verify** in Search Console.  
+     (Alternatively use Google’s **HTML file** method: download the file, commit it under the path Pages serves, deploy, then verify.)
+2. **OAuth consent screen — URLs on the verified site**
+   - [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent) → set **Application home page** to your live site on that host, e.g. `https://ozgurbuluta.github.io/justbeforethemeeting/` (must match what you actually publish).
+   - Set **Privacy policy** to the live policy URL, e.g. `https://ozgurbuluta.github.io/justbeforethemeeting/privacy.html`.
+   - Save; use **Verification Center** in Cloud Console if you need to re-submit.
+3. **Demo video — OAuth consent workflow**
+   - Revoke the app first if needed: [Google Account → Third-party connections](https://myaccount.google.com/permissions).
+   - Record: open app → sign in with Google → browser shows account chooser → **consent screen** with **read-only Calendar** scope → **Allow** → return to app authorized / events loading.
+   - Upload (e.g. YouTube unlisted or Drive with link) for your reply email.
+4. **Demo video — application functionality**
+   - Record: menu bar icon, upcoming meetings, countdown or notification near a meeting, relevant settings (poll interval, filters, sound/theme), optional sign-out.
+   - Upload; second link for your reply email.
+5. **Reply to Google’s verification email** with both video links and a short note that **Search Console** verification is done and the **privacy policy** URL is updated.
+
 ---
 
 ## After you finish — paste this to Cursor (template)

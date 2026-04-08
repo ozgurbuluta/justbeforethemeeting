@@ -12,22 +12,109 @@
     <div class="hero-inner">
       <p class="eyebrow">Just Before The Meeting</p>
       <h1>Privacy policy</h1>
-      <p class="lede">Last updated: March 26, 2026</p>
+      <p class="lede">Last updated: April 8, 2026</p>
       <p class="cta-note"><a href="index.html">← Back to home</a></p>
     </div>
   </header>
 
   <main class="legal">
     <section>
-      <h2>The app (macOS)</h2>
+      <h2>How this app uses Google user data</h2>
       <p>
-        Just Before The Meeting is a menu bar application that can read your Google Calendar when you choose to sign in.
-        Sign-in uses Google OAuth. Access is limited to read-only calendar scope (<code>calendar.readonly</code>).
-        OAuth tokens are stored in the <strong>macOS Keychain</strong> on your computer. Calendar data is used on your
-        device to schedule countdowns and is not transmitted to servers operated by the app developer.
+        Just Before The Meeting is a macOS menu bar application. If you choose to sign in with Google, the app accesses
+        your Google account data only as described below, in line with the
+        <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>.
+        The app does not use Google user data to train generalized artificial intelligence or machine learning models.
       </p>
+
+      <h3>Data accessed</h3>
+      <p>The app requests this OAuth scope:</p>
+      <ul>
+        <li>
+          <code>https://www.googleapis.com/auth/calendar.readonly</code> — read-only access to Google Calendar.
+        </li>
+      </ul>
+      <p>Through the Google Calendar API, the app may access:</p>
+      <ul>
+        <li>
+          <strong>Calendar list metadata</strong> — information returned by the Calendar API for calendars in your account
+          (for example calendar identifiers and whether a calendar is selected or hidden), so the app knows which calendars
+          to read.
+        </li>
+        <li>
+          <strong>Event metadata</strong> for events in a rolling time window (up to approximately the next 48 hours),
+          including event identifiers, titles or summaries as returned by Google, start and end times, and links the API may
+          provide (such as <code>htmlLink</code> and <code>hangoutLink</code>) where present on an event.
+        </li>
+      </ul>
       <p>
-        When you use Google services, Google’s privacy policy applies to data processed by Google:
+        The app does not request additional Google scopes. It does not read your email, contacts, Drive files, or other
+        Google product data outside read-only Calendar access as described above.
+      </p>
+
+      <h3>Data usage</h3>
+      <p>Google user data accessed by the app is used only to provide the app’s features on your Mac, including:</p>
+      <ul>
+        <li>Periodically refreshing calendar information according to the poll interval you configure.</li>
+        <li>Applying your in-app filters and rules to determine which meetings matter for alerts.</li>
+        <li>Showing countdowns, menu bar status, and optional local notifications before meetings.</li>
+      </ul>
+      <p>
+        We do not use this data for advertising, sale, or user profiling. We do not build advertising profiles from Google
+        user data.
+      </p>
+
+      <h3>Data sharing</h3>
+      <p>
+        The app does not send your Google calendar content or OAuth tokens to servers operated by the app developer. There
+        is no developer-controlled backend that collects Google user data from the app.
+      </p>
+      <p>Data flows that involve third parties:</p>
+      <ul>
+        <li>
+          <strong>Google</strong> — Your device communicates directly with Google’s OAuth and Google Calendar API endpoints
+          over HTTPS when you sign in and when the app refreshes calendar data.
+        </li>
+        <li>
+          <strong>GitHub Pages</strong> — This marketing and documentation website (including this privacy policy) is static
+          content; it does not receive your calendar data or OAuth tokens from the app. GitHub’s processing of site visitors
+          is described in
+          <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub’s privacy statement</a>.
+        </li>
+      </ul>
+
+      <h3>Storage and protection</h3>
+      <p>
+        <strong>OAuth tokens</strong> (access and refresh tokens) are stored in the <strong>macOS Keychain</strong> on your
+        computer, using the system’s secure storage APIs. Calendar and event information used by the app is held in memory
+        on your device while the app runs, to drive countdowns and the user interface.
+      </p>
+      <p>All requests to Google’s APIs use HTTPS.</p>
+
+      <h3>Retention and deletion</h3>
+      <p>
+        OAuth tokens remain on your Mac in the Keychain until you sign out in the app or remove the app’s data. Signing out
+        in the app removes stored OAuth tokens from the Keychain on that Mac.
+      </p>
+      <p>You can also revoke the app’s access to your Google account at any time:</p>
+      <ul>
+        <li>
+          Google Account → <a href="https://myaccount.google.com/permissions">Third-party connections</a> — remove access
+          for Just Before The Meeting (or the OAuth client name shown in your account).
+        </li>
+      </ul>
+      <p>
+        For questions or additional deletion-related requests regarding this app, you may open an issue on the project
+        repository:
+        <a href="https://github.com/ozgurbuluta/justbeforethemeeting">github.com/ozgurbuluta/justbeforethemeeting</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>The macOS application (summary)</h2>
+      <p>
+        Sign-in uses Google OAuth with PKCE and a local loopback redirect in the browser. When you use Google services,
+        Google’s privacy policy applies to data processed by Google:
         <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>
       </p>
     </section>
@@ -36,17 +123,20 @@
       <h2>This website</h2>
       <p>
         This site is static (download and product information). It does not set analytics cookies as part of the
-        repository’s default files. If the site is hosted on GitHub Pages, GitHub’s policies and processing may apply;
-        see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub’s privacy statement</a>.
+        repository’s default files. If the site is hosted on GitHub Pages, GitHub’s policies and processing may apply; see
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub’s privacy statement</a>.
       </p>
     </section>
 
     <section lang="tr">
       <h2>Gizlilik politikası (Türkçe özeti)</h2>
       <p>
-        Uygulama, yalnızca siz oturum açtığınızda Google Takvim’e salt okunur erişir; veriler cihazınızda işlenir,
-        jetonlar macOS Anahtar Zinciri’nde saklanır. Takvim içeriği geliştirici sunucularına gönderilmez. Web sitesi
-        statiktir; barındırma sağlayıcısı (ör. GitHub Pages) kendi gizlilik koşullarını uygulayabilir.
+        Uygulama yalnızca <code>calendar.readonly</code> kapsamı ile Google Takvim’e salt okunur erişir; takvim listesi ve
+        yaklaşık 48 saatlik etkinlik üst verilerini (kimlik, başlık, başlangıç/bitiş, API’nin döndürdüğü bağlantılar) cihazınızda
+        geri sayım ve bildirimler için kullanır. OAuth jetonları macOS Anahtar Zinciri’nde saklanır; takvim içeriği geliştirici
+        sunucularına gönderilmez. Oturumu uygulama içinden kapatmak veya Google hesabınızdan üçüncü taraf erişimini kaldırmak
+        verilerin kullanımını durdurur. Web sitesi statiktir; barındırma (ör. GitHub Pages) için ilgili sağlayıcının gizlilik
+        bildirimi geçerlidir.
       </p>
     </section>
   </main>

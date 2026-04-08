@@ -195,6 +195,23 @@ footer a:hover {
   margin-top: 2rem;
 }
 
+.legal h3 {
+  color: var(--fg);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.legal ul {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  padding: 0;
+}
+
+.legal li {
+  margin: 0.35rem 0;
+}
+
 .legal p {
   margin: 0.75rem 0;
 }
