@@ -121,7 +121,26 @@ Use this after Google emails you about **domain verification**, **privacy policy
 4. **Demo video — application functionality**
    - Record: menu bar icon, upcoming meetings, countdown or notification near a meeting, relevant settings (poll interval, filters, sound/theme), optional sign-out.
    - Upload; second link for your reply email.
-5. **Reply to Google’s verification email** with both video links and a short note that **Search Console** verification is done and the **privacy policy** URL is updated.
+5. **Reply to Google’s verification email** (same thread) with both video links and confirmation that Search Console verification is done and the privacy policy URL is current.
+
+**Example reply body** (replace bracketed parts):
+
+```text
+Hello,
+
+We have addressed the verification feedback:
+
+1. Domain: ozgurbuluta.github.io is verified in Google Search Console.
+2. OAuth consent screen — Application home page and Privacy policy URL:
+   - Home: https://ozgurbuluta.github.io/justbeforethemeeting/
+   - Privacy: https://ozgurbuluta.github.io/justbeforethemeeting/privacy.html
+3. Privacy policy updated to disclose Google user data access, use, sharing, storage, retention, and deletion.
+4. OAuth consent workflow demo: [YOUR_OAUTH_VIDEO_URL]
+5. Application functionality demo: [YOUR_APP_VIDEO_URL]
+
+Thank you,
+[Your name]
+```
 
 ---
 
